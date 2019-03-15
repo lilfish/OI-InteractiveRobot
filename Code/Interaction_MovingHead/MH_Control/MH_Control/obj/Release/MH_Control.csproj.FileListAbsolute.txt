@@ -1,0 +1,16 @@
+C:\Users\ryanv\source\repos\MH_Control\MH_Control\bin\Release\MH_Control.exe.config
+C:\Users\ryanv\source\repos\MH_Control\MH_Control\bin\Release\MH_Control.exe
+C:\Users\ryanv\source\repos\MH_Control\MH_Control\bin\Release\MH_Control.pdb
+C:\Users\ryanv\source\repos\MH_Control\MH_Control\obj\Release\MH_Control.Form1.resources
+C:\Users\ryanv\source\repos\MH_Control\MH_Control\obj\Release\MH_Control.Properties.Resources.resources
+C:\Users\ryanv\source\repos\MH_Control\MH_Control\obj\Release\MH_Control.csproj.GenerateResource.cache
+C:\Users\ryanv\source\repos\MH_Control\MH_Control\obj\Release\MH_Control.csproj.CoreCompileInputs.cache
+C:\Users\ryanv\source\repos\MH_Control\MH_Control\obj\Release\MH_Control.exe
+C:\Users\ryanv\source\repos\MH_Control\MH_Control\obj\Release\MH_Control.pdb
+C:\Users\ryanv\source\repos\MH_Control\MH_Control\obj\Release\MH_Control.csprojAssemblyReference.cache
+C:\Users\ryanv\source\repos\MH_Control\MH_Control\bin\Release\SharpDX.dll
+C:\Users\ryanv\source\repos\MH_Control\MH_Control\bin\Release\SharpDX.pdb
+C:\Users\ryanv\source\repos\MH_Control\MH_Control\obj\Release\MH_Control.csproj.CopyComplete
+C:\Users\ryanv\source\repos\MH_Control\MH_Control\bin\Release\SharpDX.XInput.dll
+C:\Users\ryanv\source\repos\MH_Control\MH_Control\bin\Release\SharpDX.XInput.pdb
+C:\Users\ryanv\source\repos\MH_Control\MH_Control\bin\Release\SharpDX.XInput.xml
