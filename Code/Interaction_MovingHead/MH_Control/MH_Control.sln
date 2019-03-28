@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MH_Control", "MH_Control\MH_Control.csproj", "{9B8D4FED-2F25-47F3-820A-94556F7F700D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MH_SerialControl", "..\..\..\Documents\Arduino\MH_SerialControl\MH_SerialControl.vcxproj", "{C5F80730-F44F-4478-BDAE-6634EFC2CA88}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MH_SerialControl", "..\..\MovingHead_COMtoDMX_module\MH_SerialControl\MH_SerialControl.vcxproj", "{C5F80730-F44F-4478-BDAE-6634EFC2CA88}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

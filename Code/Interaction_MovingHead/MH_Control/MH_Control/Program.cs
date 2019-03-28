@@ -16,7 +16,7 @@ namespace MH_Control
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Form_MovingHead_Demo());
         }
     }
 }
