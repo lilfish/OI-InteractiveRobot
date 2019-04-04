@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.IO.Ports;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,8 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SharpDX.XInput;
 
+using System.IO;
+using System.IO.Ports;
+using SharpDX.XInput;
+using System.Net;
+using System.Net.Sockets;
+using System.Text.RegularExpressions;
 
 namespace MH_Control
 {
@@ -30,9 +33,17 @@ namespace MH_Control
         Timer timer_main;
         Timer timer_timeOut;
 
+        BackgroundWorker Receiver;
+
+        ServerClient serverClient;
+
+        string Receive;
+
         bool toggleLED = false;
         bool timeout = false;
         bool simulation = false;
+        enum ProgramMode { Controller, Virtual, Socket };
+        ProgramMode programMode;
 
         private void CheckPorts()
         {
@@ -42,7 +53,6 @@ namespace MH_Control
             {
                 cbx_COM_PORTS.SelectedIndex = 0;
                 simulation = false;
-                btn_StartSim.Enabled = false;
             }
             else
             {
@@ -50,7 +60,6 @@ namespace MH_Control
                 btn_SerialConnect.Enabled = false;
                 lbl_debug_text.Text += "\nSwitching to simulation mode";
                 simulation = true;
-                btn_StartSim.Enabled = true;
             }
         }
 
@@ -74,7 +83,17 @@ namespace MH_Control
             timer_main.Interval = 50;
             timer_timeOut.Interval = 200;
 
+            Receiver = new BackgroundWorker();
+            Receiver.DoWork += new DoWorkEventHandler(Receiver_DoWork);
+
+            serverClient = new ServerClient();
+
+            tbxServerIP.Text = serverClient.Address;
+            tbxServerPort.Text = "1337";
+            btnServerStop.Enabled = false;
+
             CheckPorts();
+            cbx_ProgramModes.DataSource = Enum.GetValues(typeof(ProgramMode));
             r = new Random(DateTime.Today.Millisecond);
             controller = new XI_Controller();
             controller.Update();
@@ -91,14 +110,32 @@ namespace MH_Control
             }
 
             Movinghead = new MH_Showtec25LED(cbx_COM_PORTS.SelectedItem.ToString(), 9600, 1);
-            timer_main.Start();
-
+            Movinghead.Color(0);
+            Movinghead.Strobe(0);
+            Movinghead.Dimmer(0);
+            //timer_main.Start();
         }
 
-        private void btn_StartSim_Click(object sender, EventArgs e)
+        private void btn_StartDemo_Click(object sender, EventArgs e)
         {
-            timer_main.Start();
-
+            Enum.TryParse<ProgramMode>(cbx_ProgramModes.SelectedItem.ToString(), out programMode);
+            Console.WriteLine("Selected mode {0}", programMode);
+            if (programMode == ProgramMode.Controller && !controller.connected)
+            {
+                string t = "Connect controller before continueing";
+                Console.WriteLine(t);
+                MessageBox.Show(t);
+            }
+            else if (programMode == ProgramMode.Socket && !serverClient.IsServer)
+            {
+                string t = "Connect server to client before continueing";
+                Console.WriteLine(t);
+                MessageBox.Show(t);
+            }
+            else
+            {
+                timer_main.Start();
+            }
         }
 
         private void btn_Test_RandomPos_Click(object sender, EventArgs e)
@@ -119,103 +156,119 @@ namespace MH_Control
             int Rtrigger = 0;
             int Ltrigger = 0;
 
-            if (!simulation)
+            switch (programMode)
             {
-                controller.Update();
+                case ProgramMode.Controller:
+                    if (!simulation)
+                    {
+                        controller.Update();
 
-                pan = controller.leftThumb.X + r.Next(-2048, 2048);
-                tilt = controller.leftThumb.Y + r.Next(-1024, 0);
-                pan_Scoped = Map(pan, thumbStickMax, thumbStickMin, panMin, panMax);
-                tilt_Scoped = Map(tilt, thumbStickMin, thumbStickMax, tiltMin, tiltMax);
+                        pan = controller.leftThumb.X + r.Next(-2048, 2048);
+                        tilt = controller.leftThumb.Y + r.Next(-1024, 0);
+                        pan_Scoped = Map(pan, thumbStickMax, thumbStickMin, panMin, panMax);
+                        tilt_Scoped = Map(tilt, thumbStickMin, thumbStickMax, tiltMin, tiltMax);
 
-                Rtrigger = (int)controller.rightTrigger;
-                Ltrigger = (int)controller.leftTrigger;
+                        Rtrigger = (int)controller.rightTrigger;
+                        Ltrigger = (int)controller.leftTrigger;
 
-                switch (controller.Buttons)
-                {
-                    case GamepadButtonFlags.None:
-                        break;
-                    case GamepadButtonFlags.DPadUp:
-                        break;
-                    case GamepadButtonFlags.DPadDown:
-                        break;
-                    case GamepadButtonFlags.DPadLeft:
-                        break;
-                    case GamepadButtonFlags.DPadRight:
-                        break;
-                    case GamepadButtonFlags.Start:
-                        break;
-                    case GamepadButtonFlags.Back:
-                        break;
-                    case GamepadButtonFlags.LeftThumb:
-                        break;
-                    case GamepadButtonFlags.RightThumb:
-                        break;
-                    case GamepadButtonFlags.LeftShoulder:
-                        Movinghead.Color(0);
-                        break;
-                    case GamepadButtonFlags.RightShoulder:
-                        if (!timeout)
+                        switch (controller.Buttons)
                         {
-                            if (toggleLED)
-                            {
-                                Movinghead.Strobe(255);
-                                Movinghead.Dimmer(1);
-                                toggleLED = false;
-                            }
-                            else
-                            {
+                            case GamepadButtonFlags.None:
+                                break;
+                            case GamepadButtonFlags.DPadUp:
+                                break;
+                            case GamepadButtonFlags.DPadDown:
+                                break;
+                            case GamepadButtonFlags.DPadLeft:
+                                break;
+                            case GamepadButtonFlags.DPadRight:
+                                break;
+                            case GamepadButtonFlags.Start:
+                                break;
+                            case GamepadButtonFlags.Back:
+                                break;
+                            case GamepadButtonFlags.LeftThumb:
+                                break;
+                            case GamepadButtonFlags.RightThumb:
+                                break;
+                            case GamepadButtonFlags.LeftShoulder:
+                                Movinghead.Color(0);
+                                break;
+                            case GamepadButtonFlags.RightShoulder:
+                                if (!timeout)
+                                {
+                                    if (toggleLED)
+                                    {
+                                        Movinghead.Strobe(255);
+                                        Movinghead.Dimmer(1);
+                                        toggleLED = false;
+                                    }
+                                    else
+                                    {
+                                        Movinghead.Strobe(0);
+                                        Movinghead.Dimmer(0);
+                                        toggleLED = true;
+                                    }
+                                    timeout = true;
+                                    timer_timeOut.Start();
+                                }
+                                break;
+                            case GamepadButtonFlags.A:
+                                Movinghead.Color(20);
+                                break;
+                            case GamepadButtonFlags.B:
+                                Movinghead.Color(26);
+                                break;
+                            case GamepadButtonFlags.X:
+                                Movinghead.Color(45);
+                                break;
+                            case GamepadButtonFlags.Y:
+                                Movinghead.Color(38);
+                                break;
+                            default:
+                                Movinghead.Color(0);
                                 Movinghead.Strobe(0);
                                 Movinghead.Dimmer(0);
-                                toggleLED = true;
-                            }
-                            timeout = true;
-                            timer_timeOut.Start();
+                                break;
                         }
-                        break;
-                    case GamepadButtonFlags.A:
-                        Movinghead.Color(20);
-                        break;
-                    case GamepadButtonFlags.B:
-                        Movinghead.Color(26);
-                        break;
-                    case GamepadButtonFlags.X:
-                        Movinghead.Color(45);
-                        break;
-                    case GamepadButtonFlags.Y:
-                        Movinghead.Color(38);
-                        break;
-                    default:
-                        Movinghead.Color(0);
-                        Movinghead.Strobe(0);
-                        Movinghead.Dimmer(0);
-                        break;
-                }
 
-                // 127 == 0;
+                        // 127 == 0;
 
-                if (pan_Scoped < 256 && pan_Scoped >= 0 && tilt_Scoped < 256 && tilt_Scoped >= 0)
-                {
-                    Movinghead.Move(pan_Scoped, tilt_Scoped);
-                }
-            }
-            else
-            {
-                int x1 = pnl_ControllerSimulation.Location.X;
-                int x2 = x1 + pnl_ControllerSimulation.Width;
-                int y1 = pnl_ControllerSimulation.Location.Y;
-                int y2 = y1 + pnl_ControllerSimulation.Height;
-                Point pos = PointToClient(MousePosition);
-                if (pos.X > x1 && pos.X < x2 && pos.Y > y1 && pos.Y < y2)
-                {
-                    pan = Map(pos.X, x1, x2, -256, 256);
-                    tilt = Map(pos.Y, y2, y1, -256, 256);
+                    }
+                    break;
+                case ProgramMode.Virtual:
+                    int x1 = pnl_ControllerSimulation.Location.X;
+                    int x2 = x1 + pnl_ControllerSimulation.Width;
+                    int y1 = pnl_ControllerSimulation.Location.Y;
+                    int y2 = y1 + pnl_ControllerSimulation.Height;
+                    Point pos = PointToClient(MousePosition);
+                    if (pos.X > x1 && pos.X < x2 && pos.Y > y1 && pos.Y < y2)
+                    {
+                        pan = Map(pos.X, x1, x2, -256, 256) + r.Next(-2048, 2048);
+                        tilt = Map(pos.Y, y2, y1, -256, 256) + r.Next(-1024, 0);
+                        pan_Scoped = Map(pan, -256, 256, panMin, panMax);
+                        tilt_Scoped = Map(tilt, -256, 256, tiltMin, tiltMax);
+                    }
+                    break;
+                case ProgramMode.Socket:
+                    // Extract integers from received string
+                    string[] digits = { "0", "0"};
+                    digits = Regex.Split(Receive, @"\D+");
+                    int.TryParse(digits[0], out pan);
+                    int.TryParse(digits[1], out tilt);
                     pan_Scoped = Map(pan, -256, 256, panMin, panMax);
                     tilt_Scoped = Map(tilt, -256, 256, tiltMin, tiltMax);
-                }
+                    break;
+                default:
+                    break;
             }
 
-            string output = "Raw: pan:" + pan + "\n\ttilt:" + tilt + "\nMapped: pan:" + pan_Scoped + "\n\ttilt:" + tilt_Scoped;
+            if (!simulation && pan_Scoped < 256 && pan_Scoped >= 0 && tilt_Scoped < 256 && tilt_Scoped >= 0)
+            {
+                Movinghead.Move(pan_Scoped, tilt_Scoped);
+            }
+
+            string output = "Raw:\npan:" + pan + "\ttilt:" + tilt + "\nMapped:\npan:" + pan_Scoped + "\ttilt:" + tilt_Scoped;
             lbl_debug_text.Text = output;
             Console.WriteLine(output);
 
@@ -225,6 +278,52 @@ namespace MH_Control
         {
             timer_timeOut.Stop();
             timeout = false;
+        }
+
+        private void Receiver_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (serverClient.IsConnected)
+            {
+                try
+                {
+                    Receive = serverClient.ReadIncoming();
+
+                    if (!string.IsNullOrWhiteSpace(Receive))
+                    {
+                        this.tbxMessageHistory.Invoke(new MethodInvoker(delegate ()
+                        {
+                            tbxMessageHistory.AppendText(string.Format("[server]: received [{0}]\n", Receive));
+                        }));
+                    }
+                    Receive = "";
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
+
+        private void btnServerStart_Click(object sender, EventArgs e)
+        {
+            int port = 0;
+            int.TryParse(tbxServerPort.Text, out port);
+
+            tbxMessageHistory.AppendText(string.Format("[server]: Started server on address: {0}:{1}\n", tbxServerIP.Text, port));
+
+            serverClient.StartServerMode(port);
+
+            Receiver.RunWorkerAsync();
+
+            btnServerStop.Enabled = true;
+            btnServerStart.Enabled = false;
+        }
+
+        private void btnServerStop_Click(object sender, EventArgs e)
+        {
+            serverClient.StopServerClientMode();
+            btnServerStop.Enabled = false;
+            btnServerStart.Enabled = true;
         }
     }
 }

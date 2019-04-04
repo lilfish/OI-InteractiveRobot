@@ -57,9 +57,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\ConnectionException.cs" />
     <Compile Include="src\DMX.cs" />
     <Compile Include="src\IMovinghead.cs" />
     <Compile Include="src\MH_Showtec25LED.cs" />
+    <Compile Include="src\ServerClient.cs" />
     <Compile Include="src\XI_Controller.cs" />
     <EmbeddedResource Include="Form_MovingHead_Demo.resx">
       <DependentUpon>Form_MovingHead_Demo.cs</DependentUpon>
