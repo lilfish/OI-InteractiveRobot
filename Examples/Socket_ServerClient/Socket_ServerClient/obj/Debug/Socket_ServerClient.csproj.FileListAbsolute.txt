@@ -1,0 +1,10 @@
+D:\Users\Lorenzo\Documents\OneDrive\Visual Studio\Socket_ServerClient\Socket_ServerClient\bin\Debug\Proftaak_Server.exe.config
+D:\Users\Lorenzo\Documents\OneDrive\Visual Studio\Socket_ServerClient\Socket_ServerClient\bin\Debug\Proftaak_Server.exe
+D:\Users\Lorenzo\Documents\OneDrive\Visual Studio\Socket_ServerClient\Socket_ServerClient\bin\Debug\Proftaak_Server.pdb
+D:\Users\Lorenzo\Documents\OneDrive\Visual Studio\Socket_ServerClient\Socket_ServerClient\obj\Debug\Socket_ServerClient.csprojAssemblyReference.cache
+D:\Users\Lorenzo\Documents\OneDrive\Visual Studio\Socket_ServerClient\Socket_ServerClient\obj\Debug\Proftaak_Server.FormServer.resources
+D:\Users\Lorenzo\Documents\OneDrive\Visual Studio\Socket_ServerClient\Socket_ServerClient\obj\Debug\Proftaak_Server.Properties.Resources.resources
+D:\Users\Lorenzo\Documents\OneDrive\Visual Studio\Socket_ServerClient\Socket_ServerClient\obj\Debug\Socket_ServerClient.csproj.GenerateResource.cache
+D:\Users\Lorenzo\Documents\OneDrive\Visual Studio\Socket_ServerClient\Socket_ServerClient\obj\Debug\Socket_ServerClient.csproj.CoreCompileInputs.cache
+D:\Users\Lorenzo\Documents\OneDrive\Visual Studio\Socket_ServerClient\Socket_ServerClient\obj\Debug\Proftaak_Server.exe
+D:\Users\Lorenzo\Documents\OneDrive\Visual Studio\Socket_ServerClient\Socket_ServerClient\obj\Debug\Proftaak_Server.pdb

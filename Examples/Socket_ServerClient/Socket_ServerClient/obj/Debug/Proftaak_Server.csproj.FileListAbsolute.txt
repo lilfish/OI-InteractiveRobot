@@ -1,0 +1,9 @@
+D:\Users\Lorenzo\OneDrive\School\HBO-ICT\S2\Try_2\PTT2\Eigen\Gr8_CarTrain\Proftaak_Server\Proftaak_Server\bin\Debug\Proftaak_Server.exe.config
+D:\Users\Lorenzo\OneDrive\School\HBO-ICT\S2\Try_2\PTT2\Eigen\Gr8_CarTrain\Proftaak_Server\Proftaak_Server\bin\Debug\Proftaak_Server.exe
+D:\Users\Lorenzo\OneDrive\School\HBO-ICT\S2\Try_2\PTT2\Eigen\Gr8_CarTrain\Proftaak_Server\Proftaak_Server\bin\Debug\Proftaak_Server.pdb
+D:\Users\Lorenzo\OneDrive\School\HBO-ICT\S2\Try_2\PTT2\Eigen\Gr8_CarTrain\Proftaak_Server\Proftaak_Server\obj\Debug\Proftaak_Server.csprojResolveAssemblyReference.cache
+D:\Users\Lorenzo\OneDrive\School\HBO-ICT\S2\Try_2\PTT2\Eigen\Gr8_CarTrain\Proftaak_Server\Proftaak_Server\obj\Debug\Proftaak_Server.FormServer.resources
+D:\Users\Lorenzo\OneDrive\School\HBO-ICT\S2\Try_2\PTT2\Eigen\Gr8_CarTrain\Proftaak_Server\Proftaak_Server\obj\Debug\Proftaak_Server.Properties.Resources.resources
+D:\Users\Lorenzo\OneDrive\School\HBO-ICT\S2\Try_2\PTT2\Eigen\Gr8_CarTrain\Proftaak_Server\Proftaak_Server\obj\Debug\Proftaak_Server.csproj.GenerateResource.Cache
+D:\Users\Lorenzo\OneDrive\School\HBO-ICT\S2\Try_2\PTT2\Eigen\Gr8_CarTrain\Proftaak_Server\Proftaak_Server\obj\Debug\Proftaak_Server.exe
+D:\Users\Lorenzo\OneDrive\School\HBO-ICT\S2\Try_2\PTT2\Eigen\Gr8_CarTrain\Proftaak_Server\Proftaak_Server\obj\Debug\Proftaak_Server.pdb
