@@ -20,11 +20,12 @@
 </head>
 
 <body>
-	<!-- <video loop id="video" style="display: none; position: absolute; left: 15px; top: 75px;" src="" controls="true" autoplay="true"></video> -->
-	Hello world
-	<!-- <script src="myscript.js"></script> -->
+	<video loop id="video" muted  style="display: none; position: absolute; left: 15px; top: 75px;" src="" controls="true" autoplay="true"></video>
+	
+	<script src="myscript.js"></script>
+	<script src="sockets.js"></script>
 	<!-- <script src="socketScript.js"></script> -->
-	<script type="text/javascript" charset="utf-8">
+	<!-- <script type="text/javascript" charset="utf-8">
 
 		var connection = new WebSocket('ws://localhost:8765');
 
@@ -42,7 +43,7 @@
 		connection.onmessage = function (e) {
 			console.log('Server: ' + e.data);
 		};
-	</script>
+	</script> -->
 </body>
 
 </html>
