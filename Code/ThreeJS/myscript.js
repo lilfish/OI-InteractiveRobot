@@ -34,7 +34,7 @@ smiley1.format = THREE.RGBFormat;
 smiley1.repeat.x = 5;
 smiley1.repeat.y = 5;
 smiley1.offset.x = 0.8;
-smiley1.offset.y = 0;
+smiley1.offset.y = 0.8;
 smiley1.center.x = 0.5;
 smiley1.center.y = 0.5;
 
@@ -64,6 +64,7 @@ function animate() {
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
   modifier && modifier.apply();
+  TWEEN.update();
 }
 video.src = "./videos/testmp4.mp4";
 video.play();
@@ -86,6 +87,7 @@ function onDocumentMouseWheel(event) {
 
 var nmr = 1;
 
+//onclick (muisknop ingeklikt) verander video
 function onclick() {
   nmr += 1;
   if (nmr == 3) {
@@ -99,6 +101,7 @@ function onclick() {
 
 }
 
+// change video functie
 function changeToVid(vid) {
   console.log("changetovid: ", vid);
   video.src = vid;
@@ -106,16 +109,17 @@ function changeToVid(vid) {
   video.play();
 }
 
+// change video met een transitie video functie
 function ChangeVidWithTransition(transitionVid, lastVid) {
   console.log("ChangeVidWithTransition");
   video.src = transitionVid;
   video.load();
   video.play();
-  
+
   var contains_video = transitionVid.split(/[\s/]+/);
   video.onloadeddata = function () {
-    if (video.src.includes(contains_video[contains_video.length-1])) {
-      
+    if (video.src.includes(contains_video[contains_video.length - 1])) {
+
       setTimeout(() => {
         video.src = lastVid;
         video.load();
@@ -123,4 +127,20 @@ function ChangeVidWithTransition(transitionVid, lastVid) {
       }, video.duration * 1000);
     }
   }
+}
+
+// verander de positie van de video met een smooth animatie
+function changeOffset(x, y) {
+  var offset = { x : smiley1.offset.x, y: smiley1.offset.y };
+  var target = { x : x, y: y };
+
+  
+  var tween = new TWEEN.Tween(offset)
+  .to({ x: target.x, y: target.y }, 500) 
+  .easing(TWEEN.Easing.Quadratic.InOut) 
+  .onUpdate(function() { 
+      smiley1.offset.x = offset.x;
+      smiley1.offset.y = offset.y;
+  })
+  .start();
 }
