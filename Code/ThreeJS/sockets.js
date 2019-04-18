@@ -1,4 +1,4 @@
-var connection = new WebSocket('ws://localhost:8765');
+var connection = new WebSocket('ws://192.168.202.1:1337');
 
 connection.onopen = function () {
     console.log("ON OPEN WORKED?");
