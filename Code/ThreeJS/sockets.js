@@ -1,8 +1,9 @@
-var connection = new WebSocket('ws://192.168.202.1:1337');
+var connection = new WebSocket('ws://192.168.1.108:1337');
 
+console.log("PING?");
 connection.onopen = function () {
     console.log("ON OPEN WORKED?");
-    connection.send('Ping'); // Send the message 'Ping' to the server
+    connection.send('KAAS'); // Send the message 'Ping' to the server
 };
 
 // Log errors
@@ -11,7 +12,20 @@ connection.onerror = function (error) {
 };
 
 // Log messages from the server
-connection.onmessage = function (e) {
+connection.onmessage = function (event) {
+    console.log(event.data);
+}
+// connection.onmessage = function (e) {
+//     console.log("HxOI");
+//     console.log(e);
+//     var this_message = JSON.parse(e);
+//     console.log(this_message);
+//     // look(e);
+//     // changeToVid(something);
+//     // ChangeVidWithTransition(transitionVid, lastVid);
+// };
+
+function look(message){
     var max_x = smiley1.offset.x;
     var max_y = smiley1.offset.y;
     var cordinates = e.data.split(",");
@@ -47,5 +61,5 @@ connection.onmessage = function (e) {
         new_y_offset = 0;
     }
     changeOffset(new_x_offset, new_y_offset);
+}
 
-};

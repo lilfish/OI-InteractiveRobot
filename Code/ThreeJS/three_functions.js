@@ -22,9 +22,9 @@ function onclick() {
     nmr = 1;
   }
   if (nmr == 1) {
-    changeToVid("./videos/test.mp4")
+    changeToVid("./videos/neutraal.mp4")
   } else if (nmr == 2) {
-    ChangeVidWithTransition("./videos/test.mp4", "./videos/testmp4.mp4");
+    ChangeVidWithTransition("./videos/trans_blij.mp4", "./videos/neautraal.mp4");
   }
 
 }

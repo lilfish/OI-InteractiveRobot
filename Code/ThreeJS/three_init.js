@@ -29,8 +29,8 @@ smiley1.magFilter = THREE.LinearFilter;
 smiley1.format = THREE.RGBFormat;
 smiley1.repeat.x = 5;
 smiley1.repeat.y = 5;
-smiley1.offset.x = 0.8;
-smiley1.offset.y = 0.8;
+smiley1.offset.x = 0.0;
+smiley1.offset.y = 0.0;
 smiley1.center.x = 0.5;
 smiley1.center.y = 0.5;
 
@@ -62,6 +62,6 @@ function animate() {
   modifier && modifier.apply();
   TWEEN.update();
 }
-video.src = "./videos/testmp4.mp4";
+video.src = "./videos/neutraal.mp4";
 video.play();
 animate();
