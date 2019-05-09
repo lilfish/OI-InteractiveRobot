@@ -1,7 +1,26 @@
 // inzoemen & uitzoemen met scrollen. Op het moment dat je klikt veranderd de texture
 document.addEventListener("wheel", onDocumentMouseWheel, false);
 document.addEventListener("click", onclick, true);
+document.onkeydown = checkKey;
 
+function checkKey(e) {
+
+    e = e || window.event;
+
+    if (e.keyCode == '38') {
+      smiley1.offset.y -= 0.1;
+    }
+    else if (e.keyCode == '40') {
+      smiley1.offset.y += 0.1;
+    }
+    else if (e.keyCode == '37') {
+      smiley1.offset.x -= 0.1;
+    }
+    else if (e.keyCode == '39') {
+      smiley1.offset.x += 0.1;
+    }
+
+}
 function onDocumentMouseWheel(event) {
   console.log(event);
   var fovMAX = 160;
