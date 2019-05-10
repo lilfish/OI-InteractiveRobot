@@ -162,8 +162,8 @@ namespace MH_Control
                     {
                         controller.Update();
 
-                        pan = controller.leftThumb.X + r.Next(-2048, 2048);
-                        tilt = controller.leftThumb.Y + r.Next(-1024, 0);
+                        pan = controller.leftThumb.X + r.Next(-1024, 1024);
+                        tilt = controller.leftThumb.Y + r.Next(-512, 0);
                         pan_Scoped = Map(pan, thumbStickMax, thumbStickMin, panMin, panMax);
                         tilt_Scoped = Map(tilt, thumbStickMin, thumbStickMax, tiltMin, tiltMax);
 
@@ -243,8 +243,8 @@ namespace MH_Control
                     Point pos = PointToClient(MousePosition);
                     if (pos.X > x1 && pos.X < x2 && pos.Y > y1 && pos.Y < y2)
                     {
-                        pan = Map(pos.X, x1, x2, -256, 256) + r.Next(-2048, 2048);
-                        tilt = Map(pos.Y, y2, y1, -256, 256) + r.Next(-1024, 0);
+                        pan = Map(pos.X, x1, x2, -256, 256) + r.Next(-8, 8);
+                        tilt = Map(pos.Y, y2, y1, -256, 256) + r.Next(-4, 0);
                         pan_Scoped = Map(pan, -256, 256, panMin, panMax);
                         tilt_Scoped = Map(tilt, -256, 256, tiltMin, tiltMax);
                     }
@@ -257,6 +257,8 @@ namespace MH_Control
                         digits = Regex.Split(Receive, "[^\\d-]");
                         if (int.TryParse(digits[0], out pan) && int.TryParse(digits[1], out tilt))
                         {
+                            pan += r.Next(-8, 8);
+                            tilt += r.Next(-4, 0);
                             pan_Scoped = Map(pan, -256, 256, panMin, panMax);
                             tilt_Scoped = Map(tilt, -256, 256, tiltMin, tiltMax);
                         }
