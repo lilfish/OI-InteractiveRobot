@@ -254,7 +254,7 @@ namespace MH_Control
                     {
                         // Extract integers from received string
                         string[] digits = { "", "" };
-                        digits = Regex.Split(Receive, @"\D+");
+                        digits = Regex.Split(Receive, "[^\\d-]");
                         if (int.TryParse(digits[0], out pan) && int.TryParse(digits[1], out tilt))
                         {
                             pan_Scoped = Map(pan, -256, 256, panMin, panMax);
