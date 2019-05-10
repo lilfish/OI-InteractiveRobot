@@ -5,8 +5,16 @@ import asyncio
 import websockets
 import json
 
-def sendCoords(x, y):
-	# Ryan hier!
+async def camera(websocket, path):
+	name = await websocket.recv()
+	print(f"< {name}")
+	x = 13
+	y = 37
+	emotion = "blij"
+	# Ryan code hier!
+	# Start: Detectie code
+	#
+	# Stop: communicatie gaat hier verder
 	data = {
 		"x": str(x),
 		"y": str(y),
@@ -14,21 +22,9 @@ def sendCoords(x, y):
 	}
 	myJson = json.dumps(data)
 	print(f"> {data}")
-	return myJson
-
-server_ip = socket.gethostbyname(socket.gethostname())
-print("I am %s" % server_ip)
-
-async def hello(websocket, path):
-	name = await websocket.recv()
-	print(f"< {name}")
-	# greeting = f"Hello {name}!"
-	# await websocket.send(greeting)
-	# print(f"> {greeting}")
-	await websocket.send(sendCoords(13, 37))
-	time.sleep(1)
+	await websocket.send(myJson);
 
 start_server = websockets.serve(hello, server_ip, 1337)
 
-asyncio.get_event_loop().run_until_complete(start_server)
+asyncio.get_event_loop().run_until_complete(camera)
 asyncio.get_event_loop().run_forever()

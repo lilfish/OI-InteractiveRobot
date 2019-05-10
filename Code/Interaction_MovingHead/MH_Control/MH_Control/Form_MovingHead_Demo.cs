@@ -41,7 +41,7 @@ namespace MH_Control
 
         bool toggleLED = false;
         bool timeout = false;
-        bool simulation = false;
+        bool simulation = true;
         enum ProgramMode { Controller, Virtual, Socket };
         ProgramMode programMode;
 
@@ -52,14 +52,12 @@ namespace MH_Control
             if (cbx_COM_PORTS.Items.Count > 0)
             {
                 cbx_COM_PORTS.SelectedIndex = 0;
-                simulation = false;
             }
             else
             {
                 cbx_COM_PORTS.Text = "No Ports found";
                 btn_SerialConnect.Enabled = false;
                 lbl_debug_text.Text += "\nSwitching to simulation mode";
-                simulation = true;
             }
         }
 
@@ -90,7 +88,7 @@ namespace MH_Control
 
             tbxServerIP.Text = serverClient.Address;
             tbxServerPort.Text = "1337";
-            btnServerStop.Enabled = false;
+            btnDisconnectServer.Enabled = false;
 
             CheckPorts();
             cbx_ProgramModes.DataSource = Enum.GetValues(typeof(ProgramMode));
@@ -113,6 +111,7 @@ namespace MH_Control
             Movinghead.Color(0);
             Movinghead.Strobe(0);
             Movinghead.Dimmer(0);
+            simulation = false;
             //timer_main.Start();
         }
 
@@ -126,9 +125,9 @@ namespace MH_Control
                 Console.WriteLine(t);
                 MessageBox.Show(t);
             }
-            else if (programMode == ProgramMode.Socket && !serverClient.IsServer)
+            else if (programMode == ProgramMode.Socket && !serverClient.IsConnected)
             {
-                string t = "Connect server to client before continueing";
+                string t = "Connect to server before continueing";
                 Console.WriteLine(t);
                 MessageBox.Show(t);
             }
@@ -163,8 +162,8 @@ namespace MH_Control
                     {
                         controller.Update();
 
-                        pan = controller.leftThumb.X + r.Next(-2048, 2048);
-                        tilt = controller.leftThumb.Y + r.Next(-1024, 0);
+                        pan = controller.leftThumb.X + r.Next(-1024, 1024);
+                        tilt = controller.leftThumb.Y + r.Next(-512, 0);
                         pan_Scoped = Map(pan, thumbStickMax, thumbStickMin, panMin, panMax);
                         tilt_Scoped = Map(tilt, thumbStickMin, thumbStickMax, tiltMin, tiltMax);
 
@@ -244,20 +243,26 @@ namespace MH_Control
                     Point pos = PointToClient(MousePosition);
                     if (pos.X > x1 && pos.X < x2 && pos.Y > y1 && pos.Y < y2)
                     {
-                        pan = Map(pos.X, x1, x2, -256, 256) + r.Next(-2048, 2048);
-                        tilt = Map(pos.Y, y2, y1, -256, 256) + r.Next(-1024, 0);
+                        pan = Map(pos.X, x1, x2, -256, 256) + r.Next(-8, 8);
+                        tilt = Map(pos.Y, y2, y1, -256, 256) + r.Next(-4, 0);
                         pan_Scoped = Map(pan, -256, 256, panMin, panMax);
                         tilt_Scoped = Map(tilt, -256, 256, tiltMin, tiltMax);
                     }
                     break;
                 case ProgramMode.Socket:
-                    // Extract integers from received string
-                    string[] digits = { "0", "0"};
-                    digits = Regex.Split(Receive, @"\D+");
-                    int.TryParse(digits[0], out pan);
-                    int.TryParse(digits[1], out tilt);
-                    pan_Scoped = Map(pan, -256, 256, panMin, panMax);
-                    tilt_Scoped = Map(tilt, -256, 256, tiltMin, tiltMax);
+                    if (!string.IsNullOrEmpty(Receive))
+                    {
+                        // Extract integers from received string
+                        string[] digits = { "", "" };
+                        digits = Regex.Split(Receive, "[^\\d-]");
+                        if (int.TryParse(digits[0], out pan) && int.TryParse(digits[1], out tilt))
+                        {
+                            pan += r.Next(-8, 8);
+                            tilt += r.Next(-4, 0);
+                            pan_Scoped = Map(pan, -256, 256, panMin, panMax);
+                            tilt_Scoped = Map(tilt, -256, 256, tiltMin, tiltMax);
+                        }
+                    }
                     break;
                 default:
                     break;
@@ -286,16 +291,16 @@ namespace MH_Control
             {
                 try
                 {
-                    Receive = serverClient.ReadIncoming();
+                    string incoming = serverClient.ReadIncoming();
 
-                    if (!string.IsNullOrWhiteSpace(Receive))
+                    if (!string.IsNullOrWhiteSpace(incoming))
                     {
                         this.tbxMessageHistory.Invoke(new MethodInvoker(delegate ()
                         {
-                            tbxMessageHistory.AppendText(string.Format("[server]: received [{0}]\n", Receive));
+                            Receive = incoming;
+                            tbxMessageHistory.AppendText(string.Format("[client]: received [{0}]\n", Receive));
                         }));
                     }
-                    Receive = "";
                 }
                 catch (Exception ex)
                 {
@@ -304,26 +309,30 @@ namespace MH_Control
             }
         }
 
-        private void btnServerStart_Click(object sender, EventArgs e)
+        private void btnConnectServer_Click(object sender, EventArgs e)
         {
             int port = 0;
             int.TryParse(tbxServerPort.Text, out port);
+            IPAddress serverIP = IPAddress.None;
+            IPAddress.TryParse(tbxServerIP.Text, out serverIP);
 
-            tbxMessageHistory.AppendText(string.Format("[server]: Started server on address: {0}:{1}\n", tbxServerIP.Text, port));
+            //tbxMessageHistory.AppendText(string.Format("[server]: Started server on address: {0}:{1}\n", tbxServerIP.Text, port));
+            tbxMessageHistory.AppendText(string.Format("[client]: Connected to server on address: {0}:{1}\n", tbxServerIP.Text, port));
 
-            serverClient.StartServerMode(port);
+            //serverClient.StartServerMode(port);
+            serverClient.StartClientMode(serverIP, port);
 
             Receiver.RunWorkerAsync();
 
-            btnServerStop.Enabled = true;
-            btnServerStart.Enabled = false;
+            btnDisconnectServer.Enabled = true;
+            btnConnectServer.Enabled = false;
         }
 
-        private void btnServerStop_Click(object sender, EventArgs e)
+        private void btnDisconnectServer_Click(object sender, EventArgs e)
         {
             serverClient.StopServerClientMode();
-            btnServerStop.Enabled = false;
-            btnServerStart.Enabled = true;
+            btnDisconnectServer.Enabled = false;
+            btnConnectServer.Enabled = true;
         }
     }
 }

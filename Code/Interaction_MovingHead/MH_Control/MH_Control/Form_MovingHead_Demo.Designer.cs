@@ -34,17 +34,17 @@
             this.lbl_debug_text = new System.Windows.Forms.Label();
             this.pnl_ControllerSimulation = new System.Windows.Forms.Panel();
             this.btn_StartDemo = new System.Windows.Forms.Button();
-            this.btnServerStop = new System.Windows.Forms.Button();
-            this.gbxServer = new System.Windows.Forms.GroupBox();
+            this.btnDisconnectServer = new System.Windows.Forms.Button();
+            this.gbxRemoteConnection = new System.Windows.Forms.GroupBox();
             this.tbxServerPort = new System.Windows.Forms.TextBox();
             this.tbxServerIP = new System.Windows.Forms.TextBox();
-            this.btnServerStart = new System.Windows.Forms.Button();
+            this.btnConnectServer = new System.Windows.Forms.Button();
             this.lblServerIP = new System.Windows.Forms.Label();
             this.lblServerPort = new System.Windows.Forms.Label();
             this.gbxMessageHistory = new System.Windows.Forms.GroupBox();
             this.tbxMessageHistory = new System.Windows.Forms.TextBox();
             this.cbx_ProgramModes = new System.Windows.Forms.ComboBox();
-            this.gbxServer.SuspendLayout();
+            this.gbxRemoteConnection.SuspendLayout();
             this.gbxMessageHistory.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -105,30 +105,30 @@
             this.btn_StartDemo.UseVisualStyleBackColor = true;
             this.btn_StartDemo.Click += new System.EventHandler(this.btn_StartDemo_Click);
             // 
-            // btnServerStop
+            // btnDisconnectServer
             // 
-            this.btnServerStop.Location = new System.Drawing.Point(818, 274);
-            this.btnServerStop.MinimumSize = new System.Drawing.Size(75, 25);
-            this.btnServerStop.Name = "btnServerStop";
-            this.btnServerStop.Size = new System.Drawing.Size(75, 25);
-            this.btnServerStop.TabIndex = 16;
-            this.btnServerStop.Text = "Stop";
-            this.btnServerStop.UseVisualStyleBackColor = true;
-            this.btnServerStop.Click += new System.EventHandler(this.btnServerStop_Click);
+            this.btnDisconnectServer.Location = new System.Drawing.Point(805, 274);
+            this.btnDisconnectServer.MinimumSize = new System.Drawing.Size(75, 25);
+            this.btnDisconnectServer.Name = "btnDisconnectServer";
+            this.btnDisconnectServer.Size = new System.Drawing.Size(88, 25);
+            this.btnDisconnectServer.TabIndex = 16;
+            this.btnDisconnectServer.Text = "Disconnect";
+            this.btnDisconnectServer.UseVisualStyleBackColor = true;
+            this.btnDisconnectServer.Click += new System.EventHandler(this.btnDisconnectServer_Click);
             // 
-            // gbxServer
+            // gbxRemoteConnection
             // 
-            this.gbxServer.Controls.Add(this.tbxServerPort);
-            this.gbxServer.Controls.Add(this.tbxServerIP);
-            this.gbxServer.Controls.Add(this.btnServerStart);
-            this.gbxServer.Controls.Add(this.lblServerIP);
-            this.gbxServer.Controls.Add(this.lblServerPort);
-            this.gbxServer.Location = new System.Drawing.Point(665, 177);
-            this.gbxServer.Name = "gbxServer";
-            this.gbxServer.Size = new System.Drawing.Size(244, 91);
-            this.gbxServer.TabIndex = 17;
-            this.gbxServer.TabStop = false;
-            this.gbxServer.Text = "Server";
+            this.gbxRemoteConnection.Controls.Add(this.tbxServerPort);
+            this.gbxRemoteConnection.Controls.Add(this.tbxServerIP);
+            this.gbxRemoteConnection.Controls.Add(this.btnConnectServer);
+            this.gbxRemoteConnection.Controls.Add(this.lblServerIP);
+            this.gbxRemoteConnection.Controls.Add(this.lblServerPort);
+            this.gbxRemoteConnection.Location = new System.Drawing.Point(665, 177);
+            this.gbxRemoteConnection.Name = "gbxRemoteConnection";
+            this.gbxRemoteConnection.Size = new System.Drawing.Size(244, 91);
+            this.gbxRemoteConnection.TabIndex = 17;
+            this.gbxRemoteConnection.TabStop = false;
+            this.gbxRemoteConnection.Text = "Remote Connection";
             // 
             // tbxServerPort
             // 
@@ -146,16 +146,16 @@
             this.tbxServerIP.Size = new System.Drawing.Size(105, 22);
             this.tbxServerIP.TabIndex = 5;
             // 
-            // btnServerStart
+            // btnConnectServer
             // 
-            this.btnServerStart.Location = new System.Drawing.Point(153, 49);
-            this.btnServerStart.MinimumSize = new System.Drawing.Size(75, 25);
-            this.btnServerStart.Name = "btnServerStart";
-            this.btnServerStart.Size = new System.Drawing.Size(75, 25);
-            this.btnServerStart.TabIndex = 8;
-            this.btnServerStart.Text = "Start";
-            this.btnServerStart.UseVisualStyleBackColor = true;
-            this.btnServerStart.Click += new System.EventHandler(this.btnServerStart_Click);
+            this.btnConnectServer.Location = new System.Drawing.Point(153, 49);
+            this.btnConnectServer.MinimumSize = new System.Drawing.Size(75, 25);
+            this.btnConnectServer.Name = "btnConnectServer";
+            this.btnConnectServer.Size = new System.Drawing.Size(75, 25);
+            this.btnConnectServer.TabIndex = 8;
+            this.btnConnectServer.Text = "Connect";
+            this.btnConnectServer.UseVisualStyleBackColor = true;
+            this.btnConnectServer.Click += new System.EventHandler(this.btnConnectServer_Click);
             // 
             // lblServerIP
             // 
@@ -209,8 +209,8 @@
             this.ClientSize = new System.Drawing.Size(1006, 673);
             this.Controls.Add(this.cbx_ProgramModes);
             this.Controls.Add(this.gbxMessageHistory);
-            this.Controls.Add(this.btnServerStop);
-            this.Controls.Add(this.gbxServer);
+            this.Controls.Add(this.btnDisconnectServer);
+            this.Controls.Add(this.gbxRemoteConnection);
             this.Controls.Add(this.btn_StartDemo);
             this.Controls.Add(this.pnl_ControllerSimulation);
             this.Controls.Add(this.lbl_debug_text);
@@ -221,8 +221,8 @@
             this.Name = "Form_MovingHead_Demo";
             this.Text = "MovingHead_Demo";
             this.Load += new System.EventHandler(this.Form_MovingHead_Demo_Load);
-            this.gbxServer.ResumeLayout(false);
-            this.gbxServer.PerformLayout();
+            this.gbxRemoteConnection.ResumeLayout(false);
+            this.gbxRemoteConnection.PerformLayout();
             this.gbxMessageHistory.ResumeLayout(false);
             this.gbxMessageHistory.PerformLayout();
             this.ResumeLayout(false);
@@ -238,11 +238,11 @@
         private System.Windows.Forms.Label lbl_debug_text;
         private System.Windows.Forms.Panel pnl_ControllerSimulation;
         private System.Windows.Forms.Button btn_StartDemo;
-        private System.Windows.Forms.Button btnServerStop;
-        private System.Windows.Forms.GroupBox gbxServer;
+        private System.Windows.Forms.Button btnDisconnectServer;
+        private System.Windows.Forms.GroupBox gbxRemoteConnection;
         private System.Windows.Forms.TextBox tbxServerPort;
         private System.Windows.Forms.TextBox tbxServerIP;
-        private System.Windows.Forms.Button btnServerStart;
+        private System.Windows.Forms.Button btnConnectServer;
         private System.Windows.Forms.Label lblServerIP;
         private System.Windows.Forms.Label lblServerPort;
         private System.Windows.Forms.GroupBox gbxMessageHistory;
