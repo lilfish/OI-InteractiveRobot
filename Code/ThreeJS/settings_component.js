@@ -1,26 +1,27 @@
 // check if database items exist, otherwhise make
-if(!localStorage.getItem("center_x"))
-    localStorage.setItem("center_x", 0.5);
-if(!localStorage.getItem("center_y"))
-    localStorage.setItem("center_y", 0.5);
-if(!localStorage.getItem("repeat_x"))
-    localStorage.setItem("repeat_x", 50);
-if(!localStorage.getItem("repeat_y"))
-    localStorage.setItem("repeat_y", 50);
-if(!localStorage.getItem("camera_position_z"))
-    localStorage.setItem("camera_position_z", 50);
-if(!localStorage.getItem("camera_position_y"))
-    localStorage.setItem("camera_position_y", 5.5);
-if(!localStorage.getItem("fov"))
-    localStorage.setItem("fov", 32);
-if(!localStorage.getItem("offset_x"))
-    localStorage.setItem("offset_x", 0.0);
-if(!localStorage.getItem("offset_y"))
-    localStorage.setItem("offset_y", -0.5);
-if(!localStorage.getItem("sphere_size"))
-    localStorage.setItem("sphere_size", JSON.stringify({x: 1, y: 1, z: 1}));
- 
-
+function resetSettings(){
+    if(!localStorage.getItem("center_x"))
+        localStorage.setItem("center_x", 0.5);
+    if(!localStorage.getItem("center_y"))
+        localStorage.setItem("center_y", 0.5);
+    if(!localStorage.getItem("repeat_x"))
+        localStorage.setItem("repeat_x", 10);
+    if(!localStorage.getItem("repeat_y"))
+        localStorage.setItem("repeat_y", 10);
+    if(!localStorage.getItem("camera_position_z"))
+        localStorage.setItem("camera_position_z", 50);
+    if(!localStorage.getItem("camera_position_y"))
+        localStorage.setItem("camera_position_y", 5.5);
+    if(!localStorage.getItem("fov"))
+        localStorage.setItem("fov", 32);
+    if(!localStorage.getItem("offset_x"))
+        localStorage.setItem("offset_x", 0.0);
+    if(!localStorage.getItem("offset_y"))
+        localStorage.setItem("offset_y", -0.5);
+    if(!localStorage.getItem("sphere_size"))
+        localStorage.setItem("sphere_size", JSON.stringify({x: 1, y: 1, z: 1}));
+}
+resetSettings();
 
 // inzoemen & uitzoemen met scrollen. Op het moment dat je klikt veranderd de texture
 document.addEventListener("wheel", onDocumentMouseWheel, false);
@@ -97,8 +98,9 @@ function checkKey(e) {
         sphere.scale.set(sphere.scale.x,sphere.scale.y,(sphere.scale.z - 0.1));
         localStorage.setItem("sphere_size", JSON.stringify(sphere.scale));
     } else if (e.keyCode == '46') {
-        // Reset all default variables
+        // Deleta - reset all default variables
         localStorage.clear();
+        resetSettings();
         location.reload(); 
     } 
     // 83 & 87

@@ -6,24 +6,47 @@ function changeToVid(vid) {
   video.play();
 }
 
+function doesFileExist(urlToFile) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('HEAD', urlToFile, false);
+  xhr.send();
+
+  if (xhr.status == "404") {
+      return false;
+  } else {
+      return true;
+  }
+}
+
 // change video met een transitie video functie
 function ChangeVidWithTransition(transitionVid, lastVid) {
-  console.log("ChangeVidWithTransition");
-  video.src = transitionVid;
-  video.load();
-  video.play();
+  return new Promise((resolve, reject) => {
 
-  var contains_video = transitionVid.split(/[\s/]+/);
-  video.onloadeddata = function () {
-    if (video.src.includes(contains_video[contains_video.length - 1])) {
-
-      setTimeout(() => {
-        video.src = lastVid;
-        video.load();
-        video.play();
-      }, video.duration * 1000);
+    if (doesFileExist(transitionVid) == false){
+      reject('tansition video does not exist');
     }
-  }
+    if (doesFileExist(lastVid) == false){
+      reject('last video does not exist');
+    }
+    video.src = transitionVid;
+    video.load();
+    video.play();
+  
+    var contains_video = transitionVid.split(/[\s/]+/);
+    video.onloadeddata = function () {
+      if (video.src.includes(contains_video[contains_video.length - 1])) {
+        setTimeout(() => {
+          video.src = lastVid;
+          video.load();
+          video.play();
+          resolve('video transition done');
+          console.log("LOL?");
+        }, video.duration * 1000);
+      }
+    }
+  })
+  
+  
 }
 
 // verander de positie van de video met een smooth animatie

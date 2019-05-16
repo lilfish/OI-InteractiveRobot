@@ -50,6 +50,6 @@ function animate() {
   renderer.render(scene, camera);
   TWEEN.update();
 }
-video.src = "./videos/neutraal.mp4";
+video.src = "./videos/blinkingAni.mp4";
 video.play();
 animate();
