@@ -101,7 +101,7 @@ function checkKey(e) {
         // m - sphere hoger maken
         sphere.scale.set(sphere.scale.x,sphere.scale.y,(sphere.scale.z - 0.1));
         localStorage.setItem("sphere_size", JSON.stringify(sphere.scale));
-    } else if (e.keyCode == '85') {
+    } else if (e.keyCode == '85') {2
         // u - max offset x kleiner
         var current_max = Number(localStorage.getItem("max_offset_x"))
         console.log(current_max);
@@ -129,6 +129,16 @@ function checkKey(e) {
     } 
     // 83 & 87
     console.log(e.keyCode);
+    if (e.keyCode == '49'){
+        // 1 - verander naar neutraal
+        to_neutraal();
+    } else if (e.keyCode == '50'){
+        // 1 - verander naar smiley
+        to_happy()
+    } else if (e.keyCode == '51'){
+        // 1 - verander naar neutraal
+    }
+
 }
 
 function onDocumentMouseWheel(event) {
