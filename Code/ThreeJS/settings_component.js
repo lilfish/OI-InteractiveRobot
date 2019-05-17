@@ -17,9 +17,13 @@ function resetSettings(){
     if(!localStorage.getItem("offset_x"))
         localStorage.setItem("offset_x", 0.0);
     if(!localStorage.getItem("offset_y"))
-        localStorage.setItem("offset_y", -0.5);
+        localStorage.setItem("offset_y", 0.0);
     if(!localStorage.getItem("sphere_size"))
         localStorage.setItem("sphere_size", JSON.stringify({x: 1, y: 1, z: 1}));
+    if(!localStorage.getItem("max_offset_x"))
+        localStorage.setItem("max_offset_x", 0.9);
+    if(!localStorage.getItem("max_offset_y"))
+        localStorage.setItem("max_offset_y", 0.9);
 }
 resetSettings();
 
@@ -97,6 +101,26 @@ function checkKey(e) {
         // m - sphere hoger maken
         sphere.scale.set(sphere.scale.x,sphere.scale.y,(sphere.scale.z - 0.1));
         localStorage.setItem("sphere_size", JSON.stringify(sphere.scale));
+    } else if (e.keyCode == '85') {
+        // u - max offset x kleiner
+        var current_max = Number(localStorage.getItem("max_offset_x"))
+        console.log(current_max);
+        localStorage.setItem("max_offset_x", (current_max - 0.05));
+    } else if (e.keyCode == '73') {
+        // i - max offset x groter
+        var current_max = Number(localStorage.getItem("max_offset_x"))
+        console.log(current_max);
+        localStorage.setItem("max_offset_x", (current_max + 0.05));
+    } else if (e.keyCode == '72') {
+        // h - max offset y kleiner
+        var current_max = Number(localStorage.getItem("max_offset_y"))
+        console.log(current_max);
+        localStorage.setItem("max_offset_y", (current_max - 0.05));
+    } else if (e.keyCode == '74') {
+        // j - max offset y groter
+        var current_max = Number(localStorage.getItem("max_offset_y"))
+        console.log(current_max);
+        localStorage.setItem("max_offset_y", (current_max + 0.05));
     } else if (e.keyCode == '46') {
         // Deleta - reset all default variables
         localStorage.clear();
@@ -119,17 +143,12 @@ function onDocumentMouseWheel(event) {
     localStorage.setItem("fov", camera.fov);
 }
 
-var nmr = 1;
 //onclick (muisknop ingeklikt) verander video
 function onclick() {
-    nmr += 1;
-    if (nmr == 3) {
-        nmr = 1;
-    }
-    if (nmr == 1) {
-        changeToVid("./videos/neutraal.mp4")
-    } else if (nmr == 2) {
-        ChangeVidWithTransition("./videos/trans_blij.mp4", "./videos/neautraal.mp4");
-    }
+    // console.log(screen.height,screen.width);
+    var x = event.clientX;
+    var y = event.clientY;
+    // console.log(x,y);
+    look(x+','+y);
 
 }

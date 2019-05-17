@@ -45,8 +45,6 @@ function ChangeVidWithTransition(transitionVid, lastVid) {
       }
     }
   })
-  
-  
 }
 
 // verander de positie van de video met een smooth animatie
