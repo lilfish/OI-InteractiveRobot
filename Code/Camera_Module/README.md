@@ -1,4 +1,3 @@
-
 # Installation Guides  Intel OpenVINO on AAEON UP squared Board with Intel Myriad
 
 
@@ -9,7 +8,7 @@ Ubuntu versions currently validated on UP series:
 Ubuntu 16.04 LTS (Kernel 4.15) for Intel OpenVINO with intel Myriad support
 
 
-### Ubuntu Installation with Kernel 4.15.0:
+## Ubuntu Installation with Kernel 4.15.0:
 
 
 - [ ] Download Ubuntu 16.04.5 ISO (works with desktop and server edition)
@@ -47,7 +46,29 @@ Ubuntu 16.04 LTS (Kernel 4.15) for Intel OpenVINO with intel Myriad support
             Linux upsquared-UP-Ryan 4.15.0-37-generic #40~upboard04-Ubuntu
     ```
 
-    
- 
 
+## Install the Intel Distribution of OpenVINO Toolkit
+Download the Intel Distribution of OpenVINO toolkit package file from Intel Distribution of OpenVINO toolkit for Linux.
 
+https://software.intel.com/en-us/openvino-toolkit/choose-download/free-download-linux
+
+- [ ] Unpack the .tgz file:
+    ```nginx 
+        tar -xvzf l_openvino_toolkit_p_<version>.tgz
+    ```
+- [ ] Go to the l_openvino_toolkit_p_<version> directory:
+    ```nginx 
+        cd l_openvino_toolkit_p_<version>
+    ```
+- [ ] start the GUI Installation Wizard:
+    ```nginx 
+        sudo ./install_GUI.sh
+    ```
+- [ ] When Installing continue to options and pick Cutomize. here you add the Moviduis VPU capabilities if not already selected.
+    ![installation_1](https://docs.openvinotoolkit.org/latest/openvino-install-linux-02.png)
+
+- [ ] A Complete screen indicates that the core components have been installed:
+    ![installation_2](https://docs.openvinotoolkit.org/latest/openvino-install-linux-03.png)
+  
+  
+## Install OpenVINO External Software Dependencies
