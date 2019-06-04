@@ -18,4 +18,9 @@ def printInfo():
     os.system('v4l2-ctl --list-devices')
     print("---------------------------------------------------------")
 
-
+def printInfoDone():
+    print()
+    print("CNN Loading Complete!        Status: Running")           
+    print()
+    print("---------------------------------------------------------")
+    print()
