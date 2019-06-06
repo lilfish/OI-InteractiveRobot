@@ -16,17 +16,17 @@ printInfo()
 
 # Facedetector using MYRIAD X (intel VPU) to detect faces. only use FP16 models on myriad.
 # if run on CPU/GPU use the FP32 models.
-face_detector = FaceDetector(           model_xml="./assets/face_detection/FP32/fd.xml",\
-                                        model_bin="./assets/face_detection/FP32/fd.bin",\
-                                        device="CPU",\
+face_detector = FaceDetector(           model_xml="./assets/face_detection/FP16/fd.xml",\
+                                        model_bin="./assets/face_detection/FP16/fd.bin",\
+                                        device="MYRIAD",\
                                         confidence_threshold=0.50,\
-                                        cpu_extension="/opt/intel/openvino_2019.1.144/inference_engine/lib/intel64/libcpu_extension_sse4.so")
+                                        cpu_extension="/opt/intel/openvino_2019.1.133/inference_engine/lib/intel64/libcpu_extension_sse4.so")
 
 # Running on GPU using FP32. do not run with MYRIAD!
 emotion_classifier = EmotionClassifier( model_xml="./assets/emotion_recognition/FP32/em.xml",\
                                         model_bin="./assets/emotion_recognition/FP32/em.bin",\
-                                        device="CPU", 
-                                        cpu_extension="/opt/intel/openvino_2019.1.144/inference_engine/lib/intel64/libcpu_extension_sse4.so",\
+                                        device="GPU", 
+                                        cpu_extension="/opt/intel/openvino_2019.1.133/inference_engine/lib/intel64/libcpu_extension_sse4.so",\
                                         emotion_label_list=["neutral", "happy", "sad", "surprise", "anger"])
 
 # 1280 1920
