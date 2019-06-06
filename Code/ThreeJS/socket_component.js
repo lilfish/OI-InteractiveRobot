@@ -1,32 +1,26 @@
 var connection = new WebSocket('ws://localhost:1337');
-
 connection.onopen = function () {
-    connection.send('give_data'); // Send the message 'Ping' to the server
+    setInterval(() => {
+        connection.send('give_data');
+    }, 200);
 };
 
 // Log errors
 connection.onerror = function (error) {
     console.log('WebSocket Error ');
     console.log(error);
+
 };
 
 // Log messages from the server
 connection.onmessage = function (event) {
     console.log(event.data);
     var data = JSON.parse(event.data);
+    // if a possition is given, look
     if (data.posx == true && data.posy == true){
         look(data.posx,data.posy);
     }
 }
-// connection.onmessage = function (e) {
-//     console.log("HxOI");
-//     console.log(e);
-//     var this_message = JSON.parse(e);
-//     console.log(this_message);
-//     // look(e);
-//     // changeToVid(something);
-//     // ChangeVidWithTransition(transitionVid, lastVid);
-// };
 
 function look(message){
     var max_x = localStorage.getItem("max_offset_x");
