@@ -1,22 +1,22 @@
-var connection = new WebSocket('ws://192.168.1.108:1337');
+var connection = new WebSocket('ws://localhost:1337');
 
-tryNewConnection();
-console.log("PING?");
-function tryNewConnection(){
-    connection.onopen = function () {
-        connection.send('KAAS'); // Send the message 'Ping' to the server
-    };
-}
+connection.onopen = function () {
+    connection.send('give_data'); // Send the message 'Ping' to the server
+};
+
 // Log errors
 connection.onerror = function (error) {
     console.log('WebSocket Error ');
     console.log(error);
-    tryNewConnection();
 };
 
 // Log messages from the server
 connection.onmessage = function (event) {
     console.log(event.data);
+    var data = JSON.parse(event.data);
+    if (data.posx == true && data.posy == true){
+        look(data.posx,data.posy);
+    }
 }
 // connection.onmessage = function (e) {
 //     console.log("HxOI");
