@@ -1,14 +1,17 @@
 var connection = new WebSocket('ws://192.168.1.108:1337');
 
+tryNewConnection();
 console.log("PING?");
-connection.onopen = function () {
-    console.log("ON OPEN WORKED?");
-    connection.send('KAAS'); // Send the message 'Ping' to the server
-};
-
+function tryNewConnection(){
+    connection.onopen = function () {
+        connection.send('KAAS'); // Send the message 'Ping' to the server
+    };
+}
 // Log errors
 connection.onerror = function (error) {
-    console.log('WebSocket Error ' + error);
+    console.log('WebSocket Error ');
+    console.log(error);
+    tryNewConnection();
 };
 
 // Log messages from the server
