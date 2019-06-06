@@ -1,25 +1,36 @@
-var connection = new WebSocket('ws://localhost:1337');
-connection.onopen = function () {
-    setInterval(() => {
-        connection.send('give_data');
-    }, 200);
-};
+// var connection = new WebSocket('ws://localhost:1337');
+// connection.onopen = function () {
+//     setInterval(() => {
+//         connection.send('give_data');
+//     }, 200);
+// };
 
-// Log errors
-connection.onerror = function (error) {
-    console.log('WebSocket Error ');
-    console.log(error);
+// // Log errors
+// connection.onerror = function (error) {
+//     console.log('WebSocket Error ');
+//     console.log(error);
 
-};
+// };
 
-// Log messages from the server
-connection.onmessage = function (event) {
-    console.log(event.data);
-    var data = JSON.parse(event.data);
-    // if a possition is given, look
-    if (data.posx == true && data.posy == true){
-        look(data.posx,data.posy);
+// // Log messages from the server
+// connection.onmessage = function (event) {
+//     console.log(event.data);
+//     var data = JSON.parse(event.data);
+//     // if a possition is given, look
+//     if (data.posx == true && data.posy == true){
+//         look(data.posx,data.posy);
+//     }
+// }
+
+function loadDoc() {
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        console.log(this.responseText);
     }
+};
+xhttp.open("GET", "localhost:5000/", true);
+xhttp.send();
 }
 
 function look(message){
