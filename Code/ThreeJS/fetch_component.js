@@ -1,4 +1,5 @@
 // using the Fetch API
+function fetchData(){
 fetch('http://localhost:5000/', {
         mode: 'cors' // 'cors' by default
     })
@@ -8,17 +9,22 @@ fetch('http://localhost:5000/', {
     })
     .then(function (myJson) {
         console.log(myJson);
-        if(myJson.posx && myJson.posy)
+        if (myJson.posx && myJson.posy)
             look(myJson.posx, myJson.posy);
-        if(myJson.emotion)
+        if (myJson.emotion)
             changeMood(myJson.emotion);
     })
     .catch(function (error) {
         console.error(error);
         console.log('something went very very wrong');
     });
+}
 
-function changeMood(mood){
+setInterval(() => {
+    fetchData();
+}, 1000);
+
+function changeMood(mood) {
     console.log(mood);
 }
 
