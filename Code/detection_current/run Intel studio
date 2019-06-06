@@ -1,0 +1,45 @@
+Initialise Anaconda: (conda)
+	$ source /home/up2/anaconda3/etc/profile.d/conda.sh
+
+
+
+Initialise OpenVino:
+	$ source /opt/intel/openvino_2019.1.133/bin/setupvars.sh
+
+
+
+Start Intel studio:
+	$ sudo /opt/intel/system_studio_2019/iss_ide_eclipse-launcher.sh
+
+
+
+To start Face detect solution Solution 
+	$ conda source activate faceDetect
+
+
+
+Make new Work environment:
+	$ conda env create -f faceDetect_env.yml
+
+Activate work environment:
+source activate env_name
+
+
+
+***********************
+conda envs:  (list all: $ conda env list)
+
+faceDetect     : normal build	(main working)
+opencv_test    : normal build 	(backup build)
+opencv_test_pr : opencv extra build (extra functions opencv)
+
+
+
+
+Logitech camera Control Package:
+	$ sudo apt-get install v4l-utils
+
+$ v4l2-ctl -d /dev/video0 --set-ctrl=focus_absolute=0
+$ v4l2-ctl -d /dev/video0 --set-ctrl=sharpness=200
+$ v4l2-ctl -d /dev/video0 --set-ctrl=zoom_absolute=0 
+
