@@ -1,8 +1,9 @@
 var connection = new WebSocket('ws://localhost:1337');
 connection.onopen = function () {
-    setInterval(() => {
-        connection.send('give_data');
-    }, 200);
+    for (var i = 0; i < 1000; i++){
+        connection.send(i);
+        console.log(i);
+    }
 };
 
 // Log errors
