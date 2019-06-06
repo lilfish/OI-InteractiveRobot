@@ -1,45 +1,32 @@
-// var connection = new WebSocket('ws://localhost:1337');
-// connection.onopen = function () {
-//     for (var i = 0; i < 1000; i++){
-//         connection.send(i);
-//         console.log(i);
-//     }
-// };
+// using the Fetch API
+fetch('http://localhost:5000/', {
+        mode: 'cors' // 'cors' by default
+    })
+    .then(function (response) {
+        console.log(response.status); // returns 200
+        return response.json();
+    })
+    .then(function (myJson) {
+        console.log(myJson);
+        if(myJson.posx && myJson.posy)
+            look(myJson.posx, myJson.posy);
+        if(myJson.emotion)
+            changeMood(myJson.emotion);
+    })
+    .catch(function (error) {
+        console.error(error);
+        console.log('something went very very wrong');
+    });
 
-// // Log errors
-// connection.onerror = function (error) {
-//     console.log('WebSocket Error ');
-//     console.log(error);
-
-// };
-
-// // Log messages from the server
-// connection.onmessage = function (event) {
-//     console.log(event.data);
-//     var data = JSON.parse(event.data);
-//     // if a possition is given, look
-//     if (data.posx == true && data.posy == true){
-//         look(data.posx,data.posy);
-//     }
-// }
-
-function loadDoc() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
-        }
-    };
-    xhttp.open("GET", "localhost:5000/", true);
-    xhttp.send();
+function changeMood(mood){
+    console.log(mood);
 }
 
-function look(message) {
+function look(posx, posy) {
     var max_x = localStorage.getItem("max_offset_x");
     var max_y = localStorage.getItem("max_offset_y");
-    var cordinates = message.split(",");
-    var x_cordinate = cordinates[0];
-    var y_cordinate = cordinates[1];
+    var x_cordinate = posx;
+    var y_cordinate = posy;
 
     var new_x_offset
     var new_y_offset
