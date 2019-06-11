@@ -47,6 +47,7 @@ while True:
 
     # get frame, if frame not present return (stop)
     videoFrame, img = cap.read()
+    img = cv2.flip(img, 1)
     if not videoFrame:
         print("ERROR: Camera Disconnected")
         break
