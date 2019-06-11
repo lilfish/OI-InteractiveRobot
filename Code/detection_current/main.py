@@ -95,7 +95,7 @@ while True:
     # FPS counter & Image show
     fps = cv2.getTickFrequency() / (cv2.getTickCount() - timer)
     cv2.putText(img, "FPS : " + str(int(fps)), (40,30), cv2.FONT_HERSHEY_SIMPLEX, 0.60, (0,0,0), 1)
-    cv2.imshow("HumanFaceDetection",img)
+    # cv2.imshow("HumanFaceDetection",img)
     # /DEBUG ---------------------------------------------------------------------------------------
     
     # exit condition ! always under the code for preformance

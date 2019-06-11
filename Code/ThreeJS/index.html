@@ -20,7 +20,24 @@
 </head>
 
 <body>
-	<video loop id="video" muted  style="display: none; position: absolute; left: 15px; top: 75px; background-color: black;" src="" controls="true" autoplay="true"></video>
+	<script>
+		window.onresize = function (event) {
+			var maxHeight = window.screen.height,
+				maxWidth = window.screen.width,
+				curHeight = window.innerHeight,
+				curWidth = window.innerWidth;
+
+			if (maxWidth == curWidth && maxHeight == curHeight) {
+				console.log("HOI");
+				setTimeout(function () {
+					location.reload()
+				}, 100);
+			}
+		}
+	</script>
+	<video loop id="video" muted
+		style="display: none; position: absolute; left: 15px; top: 75px; background-color: black;" src=""
+		controls="true" autoplay="true"></video>
 
 	<script src="settings_component.js" type="module"></script>
 	<script src="init_component.js"></script>
