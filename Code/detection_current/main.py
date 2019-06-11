@@ -40,6 +40,9 @@ cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 frame = Frame( np.zeros((720,1280,3), np.uint8))
 printInfoDone()
 
+my_width = (int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)))
+my_height = (int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+
 while True:
 
     #timer for FPS
@@ -71,7 +74,9 @@ while True:
 		"posx":closest.face.location.get_centroid().x,
 		"posy":closest.face.location.get_centroid().y,
 		"emotion":closest.emotion,
-        "id":str(closest.uniqueID)
+        "id":str(closest.uniqueID),
+        "my_width":my_width,
+        "my_height":my_height,
 		}
         fp = open("data.pkl","wb")
         pickle.dump(data, fp)
@@ -81,7 +86,9 @@ while True:
 		"posx":640,
 		"posy":360,
 		"emotion":"neutral",
-        "id":str(-1)
+        "id":str(-1),
+        "my_width":my_width,
+        "my_height":my_height,
 		}
         fp = open("data.pkl","wb")
         pickle.dump(data, fp)

@@ -9,8 +9,8 @@ fetch('http://localhost:5000/', {
     })
     .then(function (myJson) {
         console.log(myJson);
-        if (myJson.posx && myJson.posy)
-            look(myJson.posx, myJson.posy);
+        if (myJson.posx && myJson.posy && myJson.my_width && myJson.my_height)
+            look(myJson.posx, myJson.posy, myJson.my_width, myJson.my_height);
         if (myJson.emotion)
             changeMood(myJson.emotion);
     })
@@ -21,14 +21,14 @@ fetch('http://localhost:5000/', {
 }
 
 setInterval(() => {
-    fetchData();
+    // fetchData();
 }, 1000);
 
 function changeMood(mood) {
     console.log(mood);
 }
 
-function look(posx, posy) {
+function look(posx, posy, win_width, win_height) {
     var max_x = localStorage.getItem("max_offset_x");
     var max_y = localStorage.getItem("max_offset_y");
     var x_cordinate = posx;
@@ -37,8 +37,8 @@ function look(posx, posy) {
     var new_x_offset
     var new_y_offset
 
-    var my_windowHeight = 720;
-    var my_windowWidth = 1080;
+    var my_windowHeight = win_height;
+    var my_windowWidth = win_width;
 
     // var my_windowHeight = screen.height;
     // var my_windowWidth = screen.width;

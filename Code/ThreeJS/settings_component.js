@@ -3,7 +3,7 @@ function resetSettings(){
     if(!localStorage.getItem("center_x"))
         localStorage.setItem("center_x", 0.5);
     if(!localStorage.getItem("center_y"))
-        localStorage.setItem("center_y", 0.5);
+        localStorage.setItem("center_y", 0.575);
     if(!localStorage.getItem("repeat_x"))
         localStorage.setItem("repeat_x", 10);
     if(!localStorage.getItem("repeat_y"))
@@ -21,9 +21,9 @@ function resetSettings(){
     if(!localStorage.getItem("sphere_size"))
         localStorage.setItem("sphere_size", JSON.stringify({x: 1, y: 1, z: 1}));
     if(!localStorage.getItem("max_offset_x"))
-        localStorage.setItem("max_offset_x", 0.9);
+        localStorage.setItem("max_offset_x", 0.8);
     if(!localStorage.getItem("max_offset_y"))
-        localStorage.setItem("max_offset_y", 0.9);
+        localStorage.setItem("max_offset_y", 0.8);
 }
 resetSettings();
 
@@ -50,7 +50,7 @@ function onclick() {
     var x = event.clientX;
     var y = event.clientY;
     // console.log(x,y);
-    look(x,y);
+    look(x,y, 1920, 1080);
 }
 
 function checkKey(e) {
