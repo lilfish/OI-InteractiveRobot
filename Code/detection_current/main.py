@@ -47,7 +47,7 @@ while True:
 
     # get frame, if frame not present return (stop)
     videoFrame, img = cap.read()
-    img = cv2.flip(img, 1)
+    # img = cv2.flip(img, 1) - we don't need to flip since the screen is inverted
     if not videoFrame:
         print("ERROR: Camera Disconnected")
         break
@@ -71,7 +71,7 @@ while True:
 		"posx":closest.face.location.get_centroid().x,
 		"posy":closest.face.location.get_centroid().y,
 		"emotion":closest.emotion,
-        "id":closest.uniqueID
+        "id":str(closest.uniqueID)
 		}
         fp = open("data.pkl","wb")
         pickle.dump(data, fp)
@@ -81,7 +81,7 @@ while True:
 		"posx":640,
 		"posy":360,
 		"emotion":"neutral",
-        "id":-1
+        "id":str(-1)
 		}
         fp = open("data.pkl","wb")
         pickle.dump(data, fp)
