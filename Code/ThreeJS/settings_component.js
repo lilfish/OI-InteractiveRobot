@@ -27,30 +27,50 @@ function resetSettings(){
 }
 resetSettings();
 
-// inzoemen & uitzoemen met scrollen. Op het moment dat je klikt veranderd de texture
+// inzoemen & uitzoemen met scrollen. Op het moment dat je klikt veranderd de positie van het gezicht
 document.addEventListener("wheel", onDocumentMouseWheel, false);
 document.addEventListener("click", onclick, true);
 document.onkeydown = checkKey;
 
-function checkKey(e) {
+function onDocumentMouseWheel(event) {
+    console.log(event);
+    var fovMAX = 160;
+    var fovMIN = 1;
 
+    camera.fov -= event.deltaY;
+    console.log(camera.fov);
+    camera.fov = Math.max(Math.min(camera.fov, fovMAX), fovMIN);
+    camera.updateProjectionMatrix();
+    localStorage.setItem("fov", camera.fov);
+}
+
+//onclick (muisknop ingeklikt) verander video
+function onclick() {
+    // console.log(screen.height,screen.width);
+    var x = event.clientX;
+    var y = event.clientY;
+    // console.log(x,y);
+    look(x,y);
+}
+
+function checkKey(e) {
     e = e || window.event;
 
     if (e.keyCode == '38') {
         // ↑ - stel y center in
-        smiley.center.y += 0.01;
+        smiley.center.y += 0.005;
         localStorage.setItem("center_y", smiley.center.y);
     } else if (e.keyCode == '40') {
         // ↓ - stel y center in
-        smiley.center.y -= 0.01;
+        smiley.center.y -= 0.005;
         localStorage.setItem("center_y", smiley.center.y);
     } else if (e.keyCode == '37') {
         // ← - stel x center in
-        smiley.center.x -= 0.01;
+        smiley.center.x -= 0.005;
         localStorage.setItem("center_x", smiley.center.x);
     } else if (e.keyCode == '39') {
         // → - stel x center in
-        smiley.center.x += 0.01;
+        smiley.center.x += 0.005;
         localStorage.setItem("center_x", smiley.center.x);
     } else if (e.keyCode == '83') {
         // s - camera naar links
@@ -133,32 +153,11 @@ function checkKey(e) {
         // 1 - verander naar neutraal
         to_neutraal();
     } else if (e.keyCode == '50'){
-        // 1 - verander naar smiley
+        // 2 - verander naar smiley
         to_happy()
     } else if (e.keyCode == '51'){
-        // 1 - verander naar neutraal
+        // 3 - verander naar neutraal
     }
 
 }
 
-function onDocumentMouseWheel(event) {
-    console.log(event);
-    var fovMAX = 160;
-    var fovMIN = 1;
-
-    camera.fov -= event.deltaY;
-    console.log(camera.fov);
-    camera.fov = Math.max(Math.min(camera.fov, fovMAX), fovMIN);
-    camera.updateProjectionMatrix();
-    localStorage.setItem("fov", camera.fov);
-}
-
-//onclick (muisknop ingeklikt) verander video
-function onclick() {
-    // console.log(screen.height,screen.width);
-    var x = event.clientX;
-    var y = event.clientY;
-    // console.log(x,y);
-    look(x+','+y);
-
-}

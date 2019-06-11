@@ -69,7 +69,18 @@ while True:
         data = {
 		"posx":closest.face.location.get_centroid().x,
 		"posy":closest.face.location.get_centroid().y,
-		"emotion":closest.emotion
+		"emotion":closest.emotion,
+        "id":closest.uniqueID
+		}
+        fp = open("data.pkl","wb")
+        pickle.dump(data, fp)
+        fp.close()
+    else:
+        data = {
+		"posx":640,
+		"posy":360,
+		"emotion":"neutral",
+        "id":-1
 		}
         fp = open("data.pkl","wb")
         pickle.dump(data, fp)

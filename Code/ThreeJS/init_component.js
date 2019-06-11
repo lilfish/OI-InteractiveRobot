@@ -15,7 +15,7 @@ renderer.setClearColor(0xff0000, 1);
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-//plane maken met een smiley texture
+//Sphere maken met een smiley texture
 var video = document.getElementById('video');
 
 var smiley = new THREE.VideoTexture(video);
@@ -28,7 +28,7 @@ smiley.offset.y = Number(localStorage.getItem("offset_y"));
 smiley.center.x = Number(localStorage.getItem("center_x"));
 smiley.center.y = Number(localStorage.getItem("center_y"));
 
-// een plane aanmaken om de texture op te laten zien
+// een sphere aanmaken om de texture op te laten zien
 sphere = new THREE.Mesh(
   new THREE.SphereGeometry( 30, 32, 32, (Math.PI /2 * -1) ),  
   new THREE.MeshBasicMaterial({
@@ -50,6 +50,6 @@ function animate() {
   renderer.render(scene, camera);
   TWEEN.update();
 }
-video.src = "./videos/smileBlinking.mp4";
+video.src = "./videos/blinkingAni.mp4";
 video.play();
 animate();

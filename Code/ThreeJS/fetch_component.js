@@ -37,11 +37,11 @@ function look(posx, posy) {
     var new_x_offset
     var new_y_offset
 
-    // var my_windowHeight = 1080;
-    // var my_windowWidth = 1920;
+    var my_windowHeight = 720;
+    var my_windowWidth = 1080;
 
-    var my_windowHeight = screen.height;
-    var my_windowWidth = screen.width;
+    // var my_windowHeight = screen.height;
+    // var my_windowWidth = screen.width;
 
     if (x_cordinate > my_windowWidth / 2) {
         x_cordinate = x_cordinate - my_windowWidth / 2;
