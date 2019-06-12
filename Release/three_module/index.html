@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset=utf-8>
+	<title>My first three.js app</title>
+	<style>
+		body {
+			margin: 0;
+			overflow: hidden;
+		}
+
+		canvas {
+			width: 100%;
+			height: 100%
+		}
+	</style>
+	<script type='text/javascript' src="js/three.js"></script>
+	<script type='text/javascript' src='js/Tween.js'></script>
+</head>
+
+<body>
+	<script>
+		window.onresize = function (event) {
+			var maxHeight = window.screen.height,
+				maxWidth = window.screen.width,
+				curHeight = window.innerHeight,
+				curWidth = window.innerWidth;
+
+			if (maxWidth == curWidth && maxHeight == curHeight) {
+				console.log("HOI");
+				setTimeout(function () {
+					location.reload()
+				}, 100);
+			}
+		}
+	</script>
+	<video loop id="video" muted
+		style="display: none; position: absolute; left: 15px; top: 75px; background-color: black;" src=""
+		controls="true" autoplay="true"></video>
+
+	<script src="settings_component.js" type="module"></script>
+	<script src="init_component.js"></script>
+	<script src="function_component.js"></script>
+	<script src="emotion_component.js"></script>
+	<script src="fetch_component.js"></script>
+</body>
+
+</html>
