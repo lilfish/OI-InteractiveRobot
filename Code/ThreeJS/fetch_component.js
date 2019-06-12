@@ -21,7 +21,7 @@ fetch('http://localhost:5000/', {
 }
 
 setInterval(() => {
-    // fetchData();
+    fetchData();
 }, 1000);
 
 function changeMood(mood) {
