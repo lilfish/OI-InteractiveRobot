@@ -1,27 +1,38 @@
 // using the Fetch API
-function fetchData(){
-fetch('http://localhost:5000/', {
-        mode: 'cors' // 'cors' by default
-    })
-    .then(function (response) {
-        console.log(response.status); // returns 200
-        return response.json();
-    })
-    .then(function (myJson) {
-        console.log(myJson);
-        if (myJson.posx && myJson.posy && myJson.my_width && myJson.my_height)
-            look(myJson.posx, myJson.posy, myJson.my_width, myJson.my_height);
-        if (myJson.emotion)
-            changeMood(myJson.emotion);
-    })
-    .catch(function (error) {
-        console.error(error);
-        console.log('something went very very wrong');
-    });
+var errors = 0;
+
+function fetchData() {
+    fetch('http://localhost:5000/', {
+            mode: 'cors' // 'cors' by default
+        })
+        .then(function (response) {
+            console.log(response.status); // returns 200
+            if (errors > 0){
+                to_neutraal();
+                errors = 0;
+            }
+            return response.json();
+        })
+        .then(function (myJson) {
+            console.log(myJson);
+            if (myJson.posx && myJson.posy && myJson.my_width && myJson.my_height)
+                look(myJson.posx, myJson.posy, myJson.my_width, myJson.my_height);
+            if (myJson.emotion)
+                changeMood(myJson.emotion);
+        })
+        .catch(function (error) {
+            console.error(error);
+            console.log('something went very very wrong');
+            errors += 1;
+            if (errors == 3) {
+                to_error();
+            }
+        });
 }
 
+
 setInterval(() => {
-    fetchData();
+        fetchData();
 }, 1000);
 
 function changeMood(mood) {
@@ -29,6 +40,7 @@ function changeMood(mood) {
 }
 
 function look(posx, posy, win_width, win_height) {
+    console.log(posx, posy);
     var max_x = localStorage.getItem("max_offset_x");
     var max_y = localStorage.getItem("max_offset_y");
     var x_cordinate = posx;
