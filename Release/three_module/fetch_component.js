@@ -33,7 +33,7 @@ function fetchData() {
 
 setInterval(() => {
     fetchData();
-}, 1000);
+}, 500);
 
 /*
 Emotions:
@@ -77,7 +77,7 @@ function changeMood(mood, person) {
 
     if(person != '-1'){
     // mood neutraal
-        if (mood == "neutral" && times_detected < 5) {
+        if (mood == "neutral" && times_detected < 10) {
             switch (random3) {
                 case 1:
                     //neutraal blijven
@@ -94,7 +94,7 @@ function changeMood(mood, person) {
         }
 
         // mood blij
-        if (mood == "happy" && times_detected < 5) {
+        if (mood == "happy" && times_detected < 10) {
             if (random2 == 0) {
                 to_surprised();
             } else if (random2 == 1) {
@@ -103,7 +103,7 @@ function changeMood(mood, person) {
         }
 
         // mood boos
-        if (mood == "anger" && times_detected < 5) {
+        if (mood == "anger" && times_detected < 10) {
             switch (random3) {
                 case 1:
                     //neutraal blijven
@@ -120,23 +120,23 @@ function changeMood(mood, person) {
         }
 
         // mood surprise
-        if (mood == "surprise" && times_detected < 5) {
+        if (mood == "surprise" && times_detected < 10) {
             if (random2 == 0) {
                 to_surprised();
-            } else if (random2 == 1) {
+            } else if (random2 == 10) {
                 to_happy();
             }
         }
 
         // mood sad
-        if (mood == "sad" && times_detected < 5){
+        if (mood == "sad" && times_detected < 10){
             to_ultraSad();
         }
 
         // robot word ongemakkelijk
-        if (times_detected > 15) {
+        if (times_detected > 30) {
             to_ultraSad();
-        } else if (times_detected > 5) {
+        } else if (times_detected > 10) {
             to_neutraal();
         }
     }
