@@ -145,9 +145,9 @@ function checkKey(e) {
         // Deleta - reset all default variables
         localStorage.clear();
         resetSettings();
-        location.reload(); 
-    } 
-    // 83 & 87
+        location.reload();
+    }
+
     console.log(e.keyCode);
     if (e.keyCode == '49'){
         // 1 - verander naar neutraal
@@ -156,7 +156,17 @@ function checkKey(e) {
         // 2 - verander naar smiley
         to_happy()
     } else if (e.keyCode == '51'){
-        // 3 - verander naar neutraal
+        // 3 - verander naar sad
+        to_sad()
+    }  else if (e.keyCode == '52'){
+        // 4 - verander naar ultra sad
+        to_ultraSad()
+    }  else if (e.keyCode == '53'){
+        // 5 - verander naar surprised
+        to_surprised()
+    }  else if (e.keyCode == '54'){
+        // 6 - verander naar angry
+        to_angry()
     }
 
 }
