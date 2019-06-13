@@ -17,8 +17,8 @@ function fetchData() {
             console.log(myJson);
             if (myJson.posx && myJson.posy && myJson.my_width && myJson.my_height)
                 look(myJson.posx, myJson.posy, myJson.my_width, myJson.my_height);
-            if (myJson.emotion, myJson.id)
-                changeMood(myJson.emotion, myJson.id);
+            // if (myJson.emotion, myJson.id)
+            //     changeMood(myJson.emotion, myJson.id);
         })
         .catch(function (error) {
             console.error(error);
@@ -71,68 +71,70 @@ function changeMood(mood, person) {
         times_detected = 1;
     }
 
+    if(person != '-1'){
     // mood neutraal
-    if (mood == "neutral" && times_detected < 5) {
-        switch (random3) {
-            case 1:
-                //neutraal blijven
-                to_neutraal();
-                break;
-            case 2:
-                //suprised kijken
+        if (mood == "neutral" && times_detected < 5) {
+            switch (random3) {
+                case 1:
+                    //neutraal blijven
+                    to_neutraal();
+                    break;
+                case 2:
+                    //suprised kijken
+                    to_surprised();
+                    break;
+                default:
+                    //blij kijken
+                    to_happy();
+            }
+        }
+
+        // mood blij
+        if (mood == "happy" && times_detected < 5) {
+            if (random2 == 0) {
                 to_surprised();
-                break;
-            default:
-                //blij kijken
+            } else if (random2 == 1) {
                 to_happy();
+            }
         }
-    }
 
-    // mood blij
-    if (mood == "happy" && times_detected < 5) {
-        if (random2 == 0) {
-            to_surprised();
-        } else if (random2 == 1) {
-            to_happy();
+        // mood boos
+        if (mood == "anger" && times_detected < 5) {
+            switch (random3) {
+                case 1:
+                    //neutraal blijven
+                    to_sad();
+                    break;
+                case 2:
+                    //suprised kijken
+                    to_surprised();
+                    break;
+                default:
+                    //blij kijken
+                    to_happy();
+            }
         }
-    }
 
-    // mood boos
-    if (mood == "anger" && times_detected < 5) {
-        switch (random3) {
-            case 1:
-                //neutraal blijven
-                to_sad();
-                break;
-            case 2:
-                //suprised kijken
+        // mood surprise
+        if (mood == "surprise" && times_detected < 5) {
+            if (random2 == 0) {
                 to_surprised();
-                break;
-            default:
-                //blij kijken
+            } else if (random2 == 1) {
                 to_happy();
+            }
         }
-    }
 
-    // mood surprise
-    if (mood == "surprise" && times_detected < 5) {
-        if (random2 == 0) {
-            to_surprised();
-        } else if (random2 == 1) {
-            to_happy();
+        // mood sad
+        if (mood == "sad" && times_detected < 5){
+            to_ultraSad();
         }
-    }
 
-    // mood sad
-    if (mood == "sad" && times_detected < 5){
-        to_ultraSad();
-    }
-
-    // robot word ongemakkelijk
-    if (times_detected > 15) {
-        to_ultraSad();
-    } else if (times_detected > 5) {
-        to_neutraal();
+        // robot word ongemakkelijk
+        if (times_detected > 15) {
+            to_ultraSad();
+        } else if (times_detected > 5) {
+            to_neutraal();
+        }
     }
 }
 

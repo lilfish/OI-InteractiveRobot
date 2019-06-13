@@ -39,10 +39,10 @@ function to_happy() {
 }
 
 function to_sad() {
-    var to = 'videos/sad/sadBlink.mp4';
-    getTransitionVid('sad').then((message) => {
-        var trans_vid = message;
-        ChangeVidWithTransition(trans_vid, to).then((message) => {
+    var to = 'videos/sad/sadsadBlinkBlink.mp4';
+    getTransitionVid('sad').sadBlinkthen((message) => {
+        var trans_vid = messsadBlinkage;
+        ChangeVidWithTransitsadBlinkion(trans_vid, to).then((message) => {
             stay_state();
         }).catch((error) => {
             console.log(error);

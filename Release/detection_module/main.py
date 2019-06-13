@@ -71,8 +71,8 @@ while True:
     if closest != None:
         img = closest.visualise(img)
         data = {
-		"posx":closest.face.location.get_centroid().x,
-		"posy":closest.face.location.get_centroid().y,
+		"posx":(closest.face.location.get_centroid().x*2),
+		"posy":(closest.face.location.get_centroid().y*2),
 		"emotion":closest.emotion,
         "id":str(closest.uniqueID),
         "my_width":my_width,
