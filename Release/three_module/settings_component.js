@@ -3,7 +3,7 @@ function resetSettings(){
     if(!localStorage.getItem("center_x"))
         localStorage.setItem("center_x", 0.5);
     if(!localStorage.getItem("center_y"))
-        localStorage.setItem("center_y", 0.575);
+        localStorage.setItem("center_y", 0.578);
     if(!localStorage.getItem("repeat_x"))
         localStorage.setItem("repeat_x", 10);
     if(!localStorage.getItem("repeat_y"))
@@ -21,9 +21,9 @@ function resetSettings(){
     if(!localStorage.getItem("sphere_size"))
         localStorage.setItem("sphere_size", JSON.stringify({x: 1, y: 1, z: 1}));
     if(!localStorage.getItem("max_offset_x"))
-        localStorage.setItem("max_offset_x", 0.8);
+        localStorage.setItem("max_offset_x", 0.56);
     if(!localStorage.getItem("max_offset_y"))
-        localStorage.setItem("max_offset_y", 0.8);
+        localStorage.setItem("max_offset_y", 0.56);
 }
 resetSettings();
 
@@ -50,8 +50,9 @@ function onclick() {
     var x = event.clientX;
     var y = event.clientY;
     // console.log(x,y);
-    look(x,y, 1920, 1080);
+    look(x,y, screen.width, screen.height);
 }
+
 
 function checkKey(e) {
     e = e || window.event;
@@ -145,9 +146,9 @@ function checkKey(e) {
         // Deleta - reset all default variables
         localStorage.clear();
         resetSettings();
-        location.reload(); 
-    } 
-    // 83 & 87
+        location.reload();
+    }
+
     console.log(e.keyCode);
     if (e.keyCode == '49'){
         // 1 - verander naar neutraal
@@ -156,7 +157,17 @@ function checkKey(e) {
         // 2 - verander naar smiley
         to_happy()
     } else if (e.keyCode == '51'){
-        // 3 - verander naar neutraal
+        // 3 - verander naar sad
+        to_sad()
+    }  else if (e.keyCode == '52'){
+        // 4 - verander naar ultra sad
+        to_ultraSad()
+    }  else if (e.keyCode == '53'){
+        // 5 - verander naar surprised
+        to_surprised()
+    }  else if (e.keyCode == '54'){
+        // 6 - verander naar angry
+        to_angry()
     }
 
 }
