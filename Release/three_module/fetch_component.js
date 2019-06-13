@@ -14,11 +14,11 @@ function fetchData() {
             return response.json();
         })
         .then(function (myJson) {
-            console.log(myJson);
+            console.log(myJson.id);
             if (myJson.posx && myJson.posy && myJson.my_width && myJson.my_height)
                 look(myJson.posx, myJson.posy, myJson.my_width, myJson.my_height);
-            // if (myJson.emotion, myJson.id)
-            //     changeMood(myJson.emotion, myJson.id);
+            if (myJson.emotion, myJson.id)
+                changeMood(myJson.emotion, myJson.id);
         })
         .catch(function (error) {
             console.error(error);
@@ -55,21 +55,25 @@ var old_id = "empty";
 var times_detected = 0;
 
 function changeMood(mood, person) {
+    console.log(times_detected);
     // om een random animatie te kiezen op een emotie
     var random3 = Math.floor(Math.random() * 3);
     var random2 = Math.floor(Math.random() * 2);
 
     // kijken hoevaak iemand als is gedetecteerd (1x = 1 seconde)
-    if (person = '-1') {
+    if (person == '-1') {
         old_id = "empty";
-        times_detected = 0;
-        to_neutraal();
+        if(times_detected > 0){
+            times_detected = 0;
+            to_neutraal();
+        }
     } else if (old_id == person) {
         times_detected += 1;
     } else {
         old_id = person;
         times_detected = 1;
     }
+    console.log(old_id, person);
 
     if(person != '-1'){
     // mood neutraal
