@@ -2,8 +2,13 @@
 var errors = 0;
 
 function fetchData() {
-    fetch('http://localhost:5000/', {
-            mode: 'cors' // 'cors' by default
+    fetch('data.json', {
+            mode: 'cors', // 'cors' by default
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
         })
         .then(function (response) {
             console.log(response.status); // returns 200

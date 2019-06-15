@@ -4,7 +4,7 @@ import os
 import openvino
 import numpy as np
 import time
-import pickle
+import json
 
 from objects import *   # all object classes 
 from utils import *     # helping utilities 
@@ -78,9 +78,9 @@ while True:
         "my_width":my_width,
         "my_height":my_height,
 		}
-        fp = open("data.pkl","wb")
-        pickle.dump(data, fp)
-        fp.close()
+        with open ("../ThreeJS/data.json","w") as json_file:
+            json.dump(data, json_file)
+        
     else:
         data = {
 		"posx":640,
@@ -90,9 +90,8 @@ while True:
         "my_width":my_width,
         "my_height":my_height,
 		}
-        fp = open("data.pkl","wb")
-        pickle.dump(data, fp)
-        fp.close()
+        with open ("../ThreeJS/data.json","w") as json_file:
+            json.dump(data, json_file)
     
     #  DEBUG: Show detected data on screen----------------------------------------------------------
 #    for human in frame.humans:
