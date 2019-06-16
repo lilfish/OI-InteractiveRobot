@@ -13,3 +13,15 @@ Please do not modify existing folder structures without solid reason
 
 ## Examples
 This folder contains all tests and examples.
+
+## Code
+All the code used in the final product.
+
+## Release
+This folder contians the final code of the project which can run on the up square.
+
+## Untested
+This folder contains the code that has to be tested before it can be moved to Release
+
+## Wiki
+For the wiki of this project [click here](https://git.fhict.nl/I338662/oi_robot_interaction/wikis/home)
